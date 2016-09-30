@@ -9,7 +9,7 @@ let app = () => {
 }
 
 class AppCtrl {
-  constructor ($scope, network) {
+  constructor (network) {
     console.log(network)
     this.network = network
   }
@@ -39,7 +39,7 @@ class AppCtrl {
   }
 }
 
-AppCtrl.$inject = ['$scope', 'network']
+AppCtrl.$inject = ['network']
 
 const MODULE_NAME = 'blackjack'
 
