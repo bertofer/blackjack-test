@@ -23,6 +23,10 @@ class Deck {
     })
   }
 
+  getCard () {
+    return this.cards.shift()
+  }
+
   print () {
     this.cards.forEach(card => {
       debug(card.toString())

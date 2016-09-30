@@ -61,6 +61,18 @@ class Network {
       this.socket.emit('connect-room')
     }
   }
+
+  startGame () {
+    this.socket.emit('start-game', this.game.id)
+  }
+
+  askCard () {
+    this.socket.emit('ask-card', {game: this.game.id})
+  }
+
+  hold () {
+    this.socket.emit('hold', {game: this.game.id})
+  }
 }
 
 Network.$inject = ['$rootScope']

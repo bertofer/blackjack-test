@@ -25,6 +25,18 @@ class AppCtrl {
   gameAdmin () {
     return this.network.game.admin === this.network.player_id
   }
+
+  startGame () {
+    this.network.startGame()
+  }
+
+  getCard () {
+    this.network.askCard()
+  }
+
+  hold () {
+    this.network.hold()
+  }
 }
 
 AppCtrl.$inject = ['$scope', 'network']

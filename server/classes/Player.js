@@ -11,9 +11,9 @@ class Player {
   }
 
   // returns 1 - 21
-  punctuation () {
+  get punctuation () {
     return this.cards.reduce((prev, card) => {
-      return prev + card.numb
+      return prev + (card.numb > 9 ? 10 : card.numb)
     }, 0)
   }
 }

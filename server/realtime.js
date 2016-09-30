@@ -7,6 +7,13 @@ let uuid = require('node-uuid')
 module.exports = function (io) {
   let games = []
 
+  function sendGameState (game) {
+    // console.log(io.sockets.adapter.rooms[game.id])
+    Object.keys(io.sockets.adapter.rooms[game.id].sockets).forEach(function (socket_id) {
+      io.sockets.connected[socket_id].emit('state', game.state(socket_id))
+    })
+  }
+
   io.on('connection', function (socket) {
     socket.emit('player_id', socket.id)
 
@@ -29,7 +36,7 @@ module.exports = function (io) {
           let player = new Player(socket.id)
           game.addPlayer(player)
         }
-        socket.emit('state', game.state())
+        sendGameState(game)
       } else {
         socket.join(room)
         let player = new Player(socket.id)
@@ -37,15 +44,32 @@ module.exports = function (io) {
         games.push(game)
         rooms[room].game_id = game.id
         io.sockets.emit('rooms', {rooms: Object.keys(rooms)})
-        socket.emit('state', game.state())
+        sendGameState(game)
       }
     })
 
-    socket.on('start-game', function (id) {
-      if (socket.rooms[0] && (socket.rooms[0].game.admin === id)) {
-        let stateGame = socket.rooms[0].game.startGame()
-        io.to(socket.rooms[0]).emit(stateGame)
+    socket.on('start-game', function (game_id) {
+      console.log(socket.rooms)
+      let rooms = io.sockets.adapter.rooms
+      if (rooms[game_id]) {
+        let game = games.find(game => game.id === game_id)
+        if (game.admin === this.id) {
+          game.startGame()
+          sendGameState(game)
+        }
       }
+    })
+
+    socket.on('ask-card', function (data) {
+      let game = games.find(game => game.id === data.game)
+      game.askCard(this.id)
+      sendGameState(game)
+    })
+
+    socket.on('hold', function (data) {
+      let game = games.find(game => game.id === data.game)
+      game.hold(this.id)
+      sendGameState(game)
     })
 
     debug('going to emit the following rooms')

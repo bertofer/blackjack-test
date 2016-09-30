@@ -11,16 +11,40 @@
     <h1>Game</h1>
     Your player id {{app.network.player_id}} and you are on game {{app.network.game.id}}
     <div>
-      <button class='btn btn-info' ng-if='!app.isGameStarted() && app.gameAdmin()'>Start game</button>
+      <button class='btn btn-info' ng-click='app.startGame()' ng-if='!app.isGameStarted() && app.gameAdmin()'>Start game</button>
     </div>
 
     <div>
       step of the game is {{app.network.game.step}} (If player id, that player goes)
     </div>
 
+    <div ng-if='app.network.game.step === app.network.player_id'>
+
+      You're next! What do you want to do?
+      <button class='btn btn-success' ng-click='app.getCard()'>Get card</button>
+      <button class='btn btn-info' ng-click='app.hold()'>Hold</button>
+
+
+    </div>
+
     <h2>Players</h2>
     <ul>
-      <li ng-repeat='player in app.network.game.players'>{{player}}</li>
+      <li ng-repeat='player in app.network.game.players'>
+        <div>
+          id: {{player.id}} <br>
+          cards: {{player.cards}},
+          punctuation: {{player.punctuation}}
+        </div>
+      </li>
+    </ul>
+
+    <h2>Viewers</h2>
+    <ul>
+      <li ng-repeat='player in app.network.game.waitingPlayers'>
+        <div>
+          id: {{player}} <br>
+        </div>
+      </li>
     </ul>
 
     <div>
