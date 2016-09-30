@@ -1,0 +1,29 @@
+{
+  "name": "blackjack",
+  "version": "0.1.0",
+  "description": "Online blackjack game developed with Socket.io",
+  "main": "index.js",
+  "scripts": {
+    "clean-dist": "rimraf ./client/dist",
+    "clean": "npm run clean-dist && rimraf node_modules",
+    "build": "npm run clean-dist && webpack --progress"
+  },
+  "author": "Alberto Fernandez",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.16.0",
+    "babel-loader": "^6.2.5",
+    "css-loader": "^0.25.0",
+    "html-webpack-plugin": "^2.22.0",
+    "ng-annotate-loader": "^0.2.0",
+    "node-sass": "^3.10.1",
+    "raw-loader": "^0.5.1",
+    "rimraf": "^2.5.4",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.2"
+  },
+  "dependencies": {
+    "angular": "^1.5.8"
+  }
+}
