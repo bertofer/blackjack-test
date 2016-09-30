@@ -50,16 +50,6 @@ class Game {
     return this.state()
   }
 
-  holds () {
-    this.currentPlayer = this._players[this.players.findIndex(player => player.id === this.currentPlayer) + 1].id
-    if (!this.currentPlayer) {
-      // Game finished?
-      return this.state()
-    } else {
-      return this.state()
-    }
-  }
-
   askCard (player_id) {
     // if overpassed 21, automatically eliminated
     let player = this._players.find(player => player.id === player_id)
