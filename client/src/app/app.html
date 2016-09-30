@@ -1,0 +1,29 @@
+<div>
+  <h1 class="title">Rooms</h1>
+
+  <ul>
+    <li ng-repeat='room in app.network.rooms'><button class='btn btn-info' ng-click='app.connectRoom(room)'>{{room}}</button></li>
+  </ul>
+
+  <button class='btn btn-success' ng-click='app.connectRoom()'>Create game</button>
+
+  <div ng-if='app.network.game.id'>
+    <h1>Game</h1>
+    Your player id {{app.network.player_id}} and you are on game {{app.network.game.id}}
+    <div>
+      <button class='btn btn-info' ng-if='!app.isGameStarted() && app.gameAdmin()'>Start game</button>
+    </div>
+
+    <div>
+      step of the game is {{app.network.game.step}} (If player id, that player goes)
+    </div>
+
+    <h2>Players</h2>
+    <ul>
+      <li ng-repeat='player in app.network.game.players'>{{player}}</li>
+    </ul>
+
+    <div>
+    </div>
+  </div>
+</div>

@@ -4,7 +4,7 @@ let express = require('express')
 
 let app = express()
 // Serve angular
-app.use(express.static(__dirname + '/client/dist'))
+app.use(express.static(__dirname + '/client/dist/'))
 let server = app.listen(3000)
 
 let io = require('socket.io').listen(server)

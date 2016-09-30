@@ -1,9 +1,7 @@
-var path = require('path')
-var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
   context: __dirname + '/client',
   entry: './src/index.js',
   output: {
@@ -15,7 +13,8 @@ module.exports = {
       { test: /\.js$/, exclude: [/node_modules/], loader: 'ng-annotate!babel' },
       { test: /\.html$/, loader: 'raw' },
       { test: /\.sass$/, loader: 'style!css!sass' },
-      { test: /\.css$/, loader: 'style!css' }
+      { test: /\.css$/, loader: 'style!css' },
+      {test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/, loader: 'file'}
     ]
   },
   plugins: [
@@ -26,15 +25,6 @@ module.exports = {
       template: './src/index.html',
       inject: 'body',
       hash: true
-    }),
-
-    // Automatically move all modules defined outside of application directory to vendor bundle.
-    // If you are using more complicated project structure, consider to specify common chunks manually.
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: function (module, count) {
-        return module.resource && module.resource.indexOf(path.resolve(__dirname, 'client')) === -1
-      }
     })
   ]
 }

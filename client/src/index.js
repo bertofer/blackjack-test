@@ -1,3 +1,7 @@
-import angular from 'angular'
+import 'bootstrap/dist/css/bootstrap.css'
 
-angular.module('blackjack', [])
+// require main app file
+require('./app/app')
+
+// require services
+require('./services/network')
